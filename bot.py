@@ -8,7 +8,7 @@ import time
 
 BOT_TOKEN = "8706085824:AAETLlGALwFRfHnguWDLGiAHcid5f8UstI0"
 SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzcQ3RCKhrSXA_4Hgy-KoArlXtEuV2DgYzqoV78eDuplqNjTE_ikuvEQFa0WzXueyNMBg/exec"
-REPO_URL = "https://YOURUSERNAME.github.io/REPO_NAME"  # Auto-updates
+REPO_URL = "https://sonam-sharma30.github.io/CYBER-COMPLAINT-/"  # Auto-updates
 
 app = Application.builder().token(BOT_TOKEN).build()
 
